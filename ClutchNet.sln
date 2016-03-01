@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClutchNet", "ClutchNet\ClutchNet.csproj", "{DE76793F-DE79-4A62-A69D-A437FF5C3559}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClutchTest", "ClutchTest\ClutchTest.csproj", "{9EA3B15C-E8F4-4585-8A2C-FB76B7DC951D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE76793F-DE79-4A62-A69D-A437FF5C3559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE76793F-DE79-4A62-A69D-A437FF5C3559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE76793F-DE79-4A62-A69D-A437FF5C3559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE76793F-DE79-4A62-A69D-A437FF5C3559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA3B15C-E8F4-4585-8A2C-FB76B7DC951D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA3B15C-E8F4-4585-8A2C-FB76B7DC951D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA3B15C-E8F4-4585-8A2C-FB76B7DC951D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA3B15C-E8F4-4585-8A2C-FB76B7DC951D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
