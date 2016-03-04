@@ -9,8 +9,8 @@ namespace ClutchNet
 {
     public class Configuration
     {
-
-        private static int appid = 0;
+        //宿主的appId
+        private static int HostAppId = 0;
         private static ConfigSource config;
 
         static Configuration()
@@ -26,18 +26,34 @@ namespace ClutchNet
                 int tmp;
                 if (int.TryParse(appIdStr, out tmp))
                 {
-                    appid = tmp;
+                    HostAppId = tmp;
                 }
             }
             config = new ConfigSource();
-            config.AppId = appid;
+            config.AppId = HostAppId;
             config.Ref = ConfigurationManager.AppSettings[Constants.REF_LITERAL];
             config.Running = true;
         }
 
         public static int GetAppId()
         {
-            return appid;
+            return HostAppId;
+        }
+
+        public static string GetWithAppId(int appId, string key)
+        {
+            return GetWithAppId(appId, key, null);
+        }
+
+        public static string GetWithAppId(int appId, string key, string defaultValue)
+        {
+            return GetWithAppId(appId, key, defaultValue, null);
+        }
+
+        public static string GetWithAppId(int appId, string key, string defaultValue, Action<string, string> callback)
+        {
+            string result = config.Get(appId, key, callback);
+            return string.IsNullOrEmpty(result) ? defaultValue : result;
         }
 
         public static string Get(string key)
@@ -45,9 +61,15 @@ namespace ClutchNet
             return Get(key, null);
         }
 
-        public static string Get(string key, Action<string, string> callback)
+        public static string Get(string key, string defaultValue)
         {
-            return config.Get(appid, key, callback);
+            return Get(key, defaultValue, null);
+        }
+
+        public static string Get(string key, string defaultValue, Action<string, string> callback)
+        {
+            string result = config.Get(HostAppId, key, callback);
+            return string.IsNullOrEmpty(result) ? defaultValue : result;
         }
 
     }
