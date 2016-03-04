@@ -48,19 +48,9 @@ namespace ClutchNet
             }
         }
 
-        public static string GetEnvGroup()
-        {
-            return envGroup;
-        }
-
-        public static string GetEnvName()
-        {
-            return envName;
-        }
-
         public static String Resolve()
         {
-            String currentEnv = GetEnvName();
+            String currentEnv = envName;
             if (string.IsNullOrEmpty(currentEnv))
             {
                 return Constants.DEV;
@@ -70,7 +60,7 @@ namespace ClutchNet
 
         public static String ResolveEnvGroup()
         {
-            String currentEnv = GetEnvGroup();
+            String currentEnv = envGroup;
             if (string.IsNullOrEmpty(currentEnv))
             {
                 return Constants.DEV;

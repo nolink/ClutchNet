@@ -40,6 +40,16 @@ namespace ClutchNet
             return HostAppId;
         }
 
+        public static string GetEnvironmentGroup()
+        {
+            return ConfigEnv.ResolveEnvGroup();
+        }
+
+        public static string GetEnvironment()
+        {
+            return ConfigEnv.Resolve();
+        }
+
         public static string GetWithAppId(int appId, string key)
         {
             return GetWithAppId(appId, key, null);

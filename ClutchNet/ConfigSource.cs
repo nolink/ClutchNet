@@ -129,8 +129,9 @@ namespace ClutchNet
                 {
                     if (!watchPaths.Contains(parentPath))
                     {
-                        var resp = etcdClient.GetNodeAsync(parentPath, recursive: true).Result;
-                        if (resp.Node.Nodes != null)
+                        watchPaths.Add(parentPath);
+                        var resp = etcdClient.GetNodeAsync(parentPath, recursive: true, ignoreKeyNotFoundException: true).Result;
+                        if (null != resp && resp.Node.Nodes != null)
                         {
                             lock (lockObj)
                             {
@@ -139,9 +140,8 @@ namespace ClutchNet
                                     confs[node.Key] = node.Value;
                                 }
                             }
+                            watch(parentPath);
                         }
-                        watchPaths.Add(parentPath);
-                        watch(parentPath);
                     }
                 }
             }
