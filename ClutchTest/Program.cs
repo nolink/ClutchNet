@@ -10,7 +10,7 @@ namespace ClutchTest
     {
         static void Main(string[] args)
         {
-            var hello = ClutchNet.Configuration.Get("hello", (key, value) => {
+            var hello = ClutchNet.Configuration.Get("hello","", (key, value) => {
 
                 Console.WriteLine(key + ":" + value);
 
