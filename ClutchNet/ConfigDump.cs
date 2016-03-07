@@ -32,8 +32,11 @@ namespace ClutchNet
                 // Write pairs.
                 foreach (var pair in d)
                 {
-                    writer.Write(pair.Key);
-                    writer.Write(pair.Value);
+                    if (null != pair.Key && null != pair.Value)
+                    {
+                        writer.Write(pair.Key);
+                        writer.Write(pair.Value);
+                    }
                 }
             }
         }
