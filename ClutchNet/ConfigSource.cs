@@ -28,7 +28,7 @@ namespace ClutchNet
             etcdClient = new EtcdClient(options);
             timer = new System.Timers.Timer();
             timer.Elapsed += timer_Elapsed;
-            timer.Interval = 5*60 * 1000;
+            timer.Interval = 5 * 60 * 1000;
             timer.Enabled = true;
         }
 
@@ -44,7 +44,7 @@ namespace ClutchNet
         private async void watch(string watchPath)
         {
             long? waitIndex = null;
-            EtcdResponse resp;
+            EtcdResponse resp = null;
             while (Running)
             {
                 try
@@ -52,7 +52,11 @@ namespace ClutchNet
                     // when waitIndex is null, get it from the ModifiedIndex
                     if (!waitIndex.HasValue)
                     {
-                        resp = await etcdClient.GetNodeAsync(watchPath, recursive: true);
+                        try
+                        {
+                            resp = await etcdClient.GetNodeAsync(watchPath, recursive: true);
+                        }
+                        catch (Exception ex) { }
                         if (resp != null && resp.Node != null)
                         {
                             waitIndex = resp.Node.ModifiedIndex + 1;
@@ -72,7 +76,11 @@ namespace ClutchNet
                     }
 
                     // watch the changes
-                    resp = await etcdClient.WatchNodeAsync(watchPath, recursive: true, waitIndex: waitIndex);
+                    try
+                    {
+                        resp = await etcdClient.WatchNodeAsync(watchPath, recursive: true, waitIndex: waitIndex);
+                    }
+                    catch (Exception ex) { }
                     if (resp != null && resp.Node != null)
                     {
                         waitIndex = resp.Node.ModifiedIndex + 1;
@@ -130,7 +138,12 @@ namespace ClutchNet
                     if (!watchPaths.Contains(parentPath))
                     {
                         watchPaths.Add(parentPath);
-                        var resp = etcdClient.GetNodeAsync(parentPath, recursive: true, ignoreKeyNotFoundException: true).Result;
+                        EtcdResponse resp = null;
+                        try
+                        {
+                            resp = etcdClient.GetNodeAsync(parentPath, recursive: true, ignoreKeyNotFoundException: true).Result;
+                        }
+                        catch (Exception ex) { }
                         if (null != resp && resp.Node.Nodes != null)
                         {
                             lock (lockObj)
@@ -152,7 +165,12 @@ namespace ClutchNet
                 {
                     if (!confs.ContainsKey(nodePath))
                     {
-                        var resp = etcdClient.GetNodeValueAsync(nodePath, ignoreKeyNotFoundException: true).Result;
+                        string resp = null;
+                        try
+                        {
+                            resp = etcdClient.GetNodeValueAsync(nodePath, ignoreKeyNotFoundException: true).Result;
+                        }
+                        catch (Exception ex) { }
                         confs[nodePath] = resp;
                     }
                 }

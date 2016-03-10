@@ -20,15 +20,23 @@ namespace ClutchNet
             }
         }
 
-        public static void Store(int appId, IDictionary<string, string> d)
+        public static void Store(int appId, Dictionary<string, string> d)
         {
             string filename = Path.GetFullPath(string.Format("{0}/{1}-config.properties", Constants.CONFIG_LOCATION, appId));
 
             using (FileStream fs = File.OpenWrite(filename))
             using (BinaryWriter writer = new BinaryWriter(fs))
             {
+                int count = 0;
+                foreach (var pair in d)
+                {
+                    if (null != pair.Key && null != pair.Value)
+                    {
+                        count++;
+                    }
+                }
                 // Put count.
-                writer.Write(d.Count);
+                writer.Write(count);
                 // Write pairs.
                 foreach (var pair in d)
                 {
@@ -40,7 +48,7 @@ namespace ClutchNet
                 }
             }
         }
-        public static IDictionary<string, string> Retrieve(int appId)
+        public static Dictionary<string, string> Retrieve(int appId)
         {
             string filename = Path.GetFullPath(string.Format("{0}/{1}-config.properties", Constants.CONFIG_LOCATION, appId));
             if (File.Exists(filename))
